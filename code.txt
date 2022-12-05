@@ -1,0 +1,52 @@
+#include <string>
+#include <vector>
+#include <iostream.h>
+
+// a book consists of a title and author
+class Book {
+private:
+  string title;
+  string author;
+public:
+  Book() { title = author = ""; }
+  Book(string t, string a) { title = t; author = a; }
+  bool operator==(Book b) { return title == b.title && author == b.author; }
+  string getTitle() { return title; }
+  string getAuthor() { return author; }
+};
+
+//a library class
+class Library {
+private:
+  vector<Book> collection;
+  int number;
+public:
+  Library() : collection(100) { number = 0; }
+  void Delete(Book b);
+};
+
+
+void Library::Delete(Book b) {
+  for (int n = 0; n < number; n++)
+    if (collection[n] == b) {
+      for (int nn = n + 1; nn < number; nn++)
+	collection[nn - 1] = collection[nn];
+      cout << b.getTitle() << " by " << b.getAuthor() << " deleted" << endl;
+      --number;
+      return;
+    }
+  cout << b.getTitle() << " not found" << endl;
+}
+
+void Library::PrintHoldings() {
+  cout << endl << "There are " << number << " books" << endl;
+  for (int n = 0; n < number; n++)
+    cout << collection[n].getTitle() << " by " <<
+            collection[n].getAuthor() << endl;
+}
+
+int main() {
+  Collection c;
+  c.run();
+}
+
